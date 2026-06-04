@@ -2,165 +2,221 @@
 
 ## Overview
 
-FlightPriceX Analytics Platform is a Big Data and Data Engineering project designed to collect, process, analyze, and visualize flight pricing data in real time. The platform leverages modern data engineering tools such as Apache Airflow, Apache Spark, Elasticsearch, Kibana, Docker, and Python to build an end-to-end analytics pipeline.
+FlightPriceX Analytics Platform is a Big Data analytics project developed to analyze flight ticket prices and generate meaningful business insights. The project combines flight fare data with fuel price information and processes the data through an end-to-end analytics pipeline.
 
-The system automates data ingestion, performs data transformation and cleaning, stores processed data efficiently, and provides interactive dashboards for monitoring flight price trends and analytics.
+The solution was built using Python, Elasticsearch, Kibana, Docker, Apache Airflow, and Machine Learning techniques. The goal of the project is to demonstrate how modern data engineering and analytics tools can be used to process large datasets and support data-driven decision making.
 
 ---
 
-## Project Architecture
+## Project Objectives
 
-1. **Data Ingestion**
+The main objectives of this project are:
 
-   * Collects flight pricing data from APIs or datasets.
-   * Automated using Apache Airflow DAGs.
-
-2. **Data Processing**
-
-   * Apache Spark performs data cleaning, transformation, and aggregation.
-   * Generates analytics-ready datasets.
-
-3. **Data Storage**
-
-   * Processed data is indexed into Elasticsearch.
-   * Enables fast querying and search capabilities.
-
-4. **Visualization**
-
-   * Kibana dashboards provide real-time analytics.
-   * Displays flight trends, pricing patterns, and KPIs.
+* Analyze flight ticket pricing patterns.
+* Integrate external fuel price information.
+* Build a scalable ETL pipeline.
+* Store processed data in Elasticsearch.
+* Create interactive dashboards using Kibana.
+* Explore predictive analytics using Machine Learning.
 
 ---
 
 ## Technologies Used
 
-* Python
-* Apache Airflow
-* Apache Spark
-* Elasticsearch
-* Kibana
-* Docker & Docker Compose
-* Pandas
-* REST APIs
-* Git & GitHub
+| Technology     | Purpose                          |
+| -------------- | -------------------------------- |
+| Python         | Data Processing and Automation   |
+| Pandas         | Data Cleaning and Transformation |
+| Apache Airflow | Workflow Orchestration           |
+| Elasticsearch  | Data Storage and Search          |
+| Kibana         | Dashboard and Visualization      |
+| Docker         | Containerized Deployment         |
+| PostgreSQL     | Airflow Metadata Database        |
+| Scikit-Learn   | Machine Learning                 |
+| GitHub         | Version Control                  |
 
 ---
 
-## Key Features
+## Project Architecture
 
-* Automated ETL Pipeline
-* Real-Time Data Processing
-* Flight Price Trend Analysis
-* Interactive Kibana Dashboards
-* KPI Monitoring
-* Dockerized Deployment
-* Scalable Big Data Architecture
+```text
+Flight Dataset (CSV)
+          +
+Fuel Price Data
+          ↓
+     ETL Pipeline
+          ↓
+    Elasticsearch
+          ↓
+       Kibana
+          ↓
+ Business Insights
+          ↓
+ Machine Learning
+```
 
 ---
 
-## KPI Metrics
+## Dataset Information
 
-The platform tracks the following business metrics:
+### Flight Dataset
 
+The flight dataset contains more than 300,000 flight records and includes:
+
+* Airline
+* Source City
+* Destination City
+* Departure Time
+* Arrival Time
+* Stops
+* Travel Class
+* Duration
+* Days Left Before Departure
+* Ticket Price
+
+### Fuel Data
+
+Fuel price information was integrated as an external economic indicator to enrich the analysis and demonstrate multi-source data integration.
+
+---
+
+## ETL Pipeline
+
+The project follows a standard ETL (Extract, Transform, Load) workflow.
+
+### Extract
+
+* Load flight data from CSV files.
+* Collect fuel price information from an external source.
+
+### Transform
+
+* Clean and preprocess data.
+* Remove unnecessary fields.
+* Merge flight and fuel datasets.
+* Generate a final processed dataset.
+
+### Load
+
+* Store processed records in Elasticsearch.
+* Create searchable indexes for analytics and visualization.
+
+---
+
+## Elasticsearch Integration
+
+Processed data is indexed into Elasticsearch using a dedicated index:
+
+```text
+flight_fuel_data
+```
+
+Benefits include:
+
+* Fast querying
+* Real-time analytics
+* Scalability
+* Seamless Kibana integration
+
+---
+
+## Kibana Dashboard
+
+The dashboard provides several KPI cards and visualizations.
+
+### KPI Cards
+
+* Average Fuel Price
+* Total Flights
 * Average Flight Price
 * Maximum Flight Price
 * Minimum Flight Price
-* Total Flights Processed
-* Average Price by Airline
-* Average Price by Route
-* Price Trend Over Time
-* Flight Volume Analysis
+
+### Visualizations
+
+* Average Flight Price by Airline
+* Average Price by Source City
+* Average Price by Destination City
+* Flight Class Distribution
+* Price Trend by Days Left
+* Average Flight Duration by Airline
 
 ---
 
-## Project Structure
+## Key Insights
 
-```text
-FlightPriceX-Analytics-Platform/
-│
-├── airflow/
-│   ├── dags/
-│   ├── logs/
-│   └── plugins/
-│
-├── scripts/
-│   ├── ingestion.py
-│   ├── transformation.py
-│   └── elasticsearch_loader.py
-│
-├── docker-compose.yml
-├── requirements.txt
-├── BigData_Report.docx
-└── README.md
-```
+Some important findings from the analysis include:
+
+* Flight prices generally increase as the departure date approaches.
+* Premium airlines tend to have higher average ticket prices.
+* Business-class tickets are significantly more expensive than Economy-class tickets.
+* Ticket prices vary considerably across cities and airlines.
+* Fuel price information can be integrated into airfare analytics for future forecasting studies.
 
 ---
 
-## Installation
+## Machine Learning Extension
 
-### Clone Repository
+A Random Forest Regression model was explored to predict flight ticket prices.
 
-```bash
-git clone https://github.com/YOUR_USERNAME/FlightPriceX-Analytics-Platform.git
-cd FlightPriceX-Analytics-Platform
-```
+### Features Used
 
-### Install Dependencies
+* Airline
+* Source City
+* Destination City
+* Travel Class
+* Duration
+* Days Left Before Departure
+* Fuel Price
 
-```bash
-pip install -r requirements.txt
-```
+### Target
 
-### Start Services
+* Flight Ticket Price
 
-```bash
-docker-compose up -d
-```
-
-### Access Applications
-
-| Service       | URL                   |
-| ------------- | --------------------- |
-| Airflow       | http://localhost:8080 |
-| Kibana        | http://localhost:5601 |
-| Elasticsearch | http://localhost:9200 |
+This extension transforms the project from descriptive analytics into predictive analytics.
 
 ---
 
-## Dashboard Insights
+## Challenges Faced
 
-The Kibana dashboard provides:
+During development, several challenges were encountered:
 
-* Flight Price Trends
-* Airline-wise Analysis
-* Route Performance
-* Price Distribution
-* Top Expensive Routes
-* Cheapest Travel Destinations
-* Daily Flight Monitoring
+* Integration of external fuel price data
+* Elasticsearch indexing of large datasets
+* Airflow configuration and orchestration
+* Docker environment setup
+* Managing large-scale data processing
+
+These challenges provided valuable experience in real-world data engineering workflows.
 
 ---
 
 ## Future Enhancements
 
-* Machine Learning Price Prediction
-* Real-Time Streaming with Kafka
-* Cloud Deployment (AWS/Azure/GCP)
-* Automated Alerting System
-* Advanced Forecasting Models
+Potential improvements include:
+
+* Real-time flight fare monitoring
+* Historical fuel price integration
+* Apache Kafka streaming architecture
+* Advanced machine learning models
+* Cloud deployment using AWS or Azure
+* Real-time predictive dashboards
+
+---
+
+## Conclusion
+
+FlightPriceX Analytics Platform demonstrates how Big Data technologies can be applied to analyze airline ticket pricing and generate actionable insights. By integrating flight fare and fuel price data, the project showcases a complete analytics workflow including data ingestion, processing, storage, visualization, and predictive analytics.
+
+This project highlights the practical use of Python, Airflow, Elasticsearch, Kibana, Docker, and Machine Learning in solving real-world analytics problems.
 
 ---
 
 ## Author
 
-**Aakash Muthuselvan**
+**Aakash M**
 
-Master's Student – Big Data & Analytics
+Master's Student – Big Data & Artificial Intelligence
 
----
-
-## License
-
-This project is developed for academic and educational purposes.
-
-<img width="1600" height="559" alt="WhatsApp Image 2026-05-31 at 4 22 57 PM" src="https://github.com/user-attachments/assets/66aee8a2-c152-4e14-a6b3-6570b1c86d3e" />
+GitHub Repository:
+https://github.com/Aakash-bit/FlightPriceX-Analytics-Platform
