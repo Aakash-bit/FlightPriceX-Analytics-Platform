@@ -6,10 +6,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_absolute_error, r2_score
 
-# Project root directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Dataset path
 file_path = os.path.join(
     BASE_DIR,
     "data",
@@ -22,7 +20,6 @@ print(file_path)
 
 df = pd.read_csv(file_path)
 
-# Encode categorical columns
 categorical_cols = [
     "airline",
     "source_city",
@@ -37,7 +34,7 @@ for col in categorical_cols:
     le = LabelEncoder()
     df[col] = le.fit_transform(df[col])
 
-# Remove columns not useful for prediction
+
 drop_cols = ["price"]
 
 if "flight" in df.columns:
@@ -46,7 +43,6 @@ if "flight" in df.columns:
 X = df.drop(columns=drop_cols)
 y = df["price"]
 
-# Split data
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
@@ -54,7 +50,6 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
-# Train model
 model = RandomForestRegressor(
     n_estimators=100,
     random_state=42,
@@ -64,10 +59,8 @@ model = RandomForestRegressor(
 print("Training model...")
 model.fit(X_train, y_train)
 
-# Predictions
 predictions = model.predict(X_test)
 
-# Metrics
 mae = mean_absolute_error(y_test, predictions)
 r2 = r2_score(y_test, predictions)
 

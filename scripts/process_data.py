@@ -1,37 +1,29 @@
 import pandas as pd
 import os
 
-# Project root directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# File paths
 flight_path = os.path.join(BASE_DIR, "data", "flight_price.csv")
 fuel_path = os.path.join(BASE_DIR, "data", "processed", "fuel_data.csv")
 
 print("Flight Path:", flight_path)
 print("Fuel Path:", fuel_path)
 
-# Load datasets
 flight_df = pd.read_csv(flight_path)
 fuel_df = pd.read_csv(fuel_path)
 
-# Remove unwanted column if present
 if "Unnamed: 0" in flight_df.columns:
     flight_df = flight_df.drop(columns=["Unnamed: 0"])
 
-# Get latest fuel price
 latest_fuel_price = fuel_df["fuel_price"].iloc[-1]
 
 print(f"Latest Fuel Price: {latest_fuel_price}")
 
-# Add fuel price column
 flight_df["fuel_price"] = latest_fuel_price
 
-# Create processed directory if missing
 processed_dir = os.path.join(BASE_DIR, "data", "processed")
 os.makedirs(processed_dir, exist_ok=True)
 
-# Save merged dataset
 output_path = os.path.join(
     processed_dir,
     "final_flight_fuel.csv"
